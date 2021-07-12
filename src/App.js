@@ -3,13 +3,14 @@ import React, { useEffect, useState } from 'react';
 import Row from './Row';
 import Banner from './Banner';
 import requests from './requests';
+import NavBar from './NavBar';
 
 function App() {
   useEffect(() => {}, []);
 
   return (
     <div className='App'>
-      {/* NavBar */}
+      <NavBar></NavBar>
       <Banner></Banner>
       <Row
         title='Netflix Originals'
