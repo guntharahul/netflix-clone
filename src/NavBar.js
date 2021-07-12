@@ -28,13 +28,13 @@ const NavBar = () => {
         src='https://upload.wikimedia.org/wikipedia/commons/0/0b/Netflix-avatar.png'
       ></img>
 
-      {/* <ul className='nav__navListItems'>
+      <ul className='nav__navListItems'>
         <li>Home</li>
         <li>Tv Shows</li>
         <li>Movies</li>
         <li>News & Popular</li>
         <li>My List</li>
-      </ul> */}
+      </ul>
     </div>
   );
 };

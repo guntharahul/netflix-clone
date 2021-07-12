@@ -10,6 +10,7 @@
   /* animation */
   transition-timing-function: ease-in;
   transition: all 0.2s;
+  align-items: center;
 }
 .nav__black {
   background-color: #111;
@@ -39,8 +40,9 @@
   flex-direction: row;
   align-items: center;
   list-style: none;
+  margin-left: 100px;
 }
 
 .nav__navListItems li {
-  padding: 5px;
+  padding: 5px 10px;
 }
