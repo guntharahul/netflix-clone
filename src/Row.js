@@ -1,11 +1,22 @@
 import axios from './axios';
 import React, { useState, useEffect } from 'react';
 import './Row.css';
+import YouTube from 'react-youtube';
+import movieTrailer from 'movie-trailer';
 
 const base_url = 'https://image.tmdb.org/t/p/original';
 
+const opts = {
+  height: '390',
+  width: '100%',
+  playerVars: {
+    autoPlay: 1,
+  },
+};
+
 const Row = ({ title, fetchUrl, isLargeRow }) => {
   const [movies, setMovies] = useState([]);
+  const [trailerUrl, setTrailerUrl] = useState('');
 
   useEffect(() => {
     // if we use any variable inside a useEffect we need to add it to the dependency array. ---> Ex: fetchUrl
@@ -18,6 +29,22 @@ const Row = ({ title, fetchUrl, isLargeRow }) => {
     fetchData();
   }, [fetchUrl]);
 
+  const handleClick = (movie) => {
+    if (trailerUrl) {
+      setTrailerUrl('');
+    } else {
+      movieTrailer(movie?.name || '')
+        .then((url) => {
+          console.log(movie);
+          const urlParams = new URLSearchParams(new URL(url).search);
+          setTrailerUrl(urlParams.get('v'));
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  };
+
   return (
     <div className='row'>
       {/* Title */}
@@ -26,6 +53,7 @@ const Row = ({ title, fetchUrl, isLargeRow }) => {
       <div className='row__posters'>
         {movies.map((movie) => (
           <img
+            onClick={() => handleClick(movie)}
             className={`row__poster ${isLargeRow && 'row__posterLarge'}`}
             key={movie.id}
             src={`${base_url}${
@@ -35,6 +63,7 @@ const Row = ({ title, fetchUrl, isLargeRow }) => {
           ></img>
         ))}
       </div>
+      {trailerUrl && <YouTube videoId={trailerUrl} opts={opts}></YouTube>}
     </div>
   );
 };
